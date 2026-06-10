@@ -1,0 +1,123 @@
+===================================================
+  EAGLE QUEST: NEST RESCUE
+  Asset & Sound Download Guide
+===================================================
+
+STEP 1 — CREATE THESE FOLDERS inside your project:
+  Resources/
+  Resources/Images/
+  Resources/Sounds/
+
+
+STEP 2 — DOWNLOAD IMAGES (all free, no copyright issues)
+---------------------------------------------------
+Go to: https://kenney.nl/assets/animal-pack-redux
+Download the pack, find these images and rename them:
+
+  eagle.png       — any eagle/bird flying image (60x50 px recommended)
+  crow.png        — small dark bird (45x35 px)
+  hawk.png        — larger brown bird (50x38 px)
+  fish.png        — fish icon (35x35 px)
+  rabbit.png      — rabbit icon (35x35 px)
+  rock.png        — rock/stone (50x38 px)
+  cloud_dark.png  — dark cloud (90x55 px)
+  plane.png       — small aircraft (90x45 px)
+  feather.png     — feather/small projectile (12x30 px)
+  shield.png      — blue shield icon (35x35 px)
+  speed.png       — lightning bolt icon (35x35 px)
+
+Also useful packs on kenney.nl:
+  - "Simple Planes" for plane.png
+  - "Nature Pack Extended" for rock, cloud
+  - "Food Pack" for fish, rabbit
+  
+Alternative free source: https://opengameart.org
+Search: "eagle sprite", "crow bird", "2d fish icon"
+
+NOTE: The game works WITHOUT images too.
+If an image file is missing, the PictureBox just shows
+as a colored rectangle. You can still play and demo it.
+
+
+STEP 3 — DOWNLOAD SOUNDS (all free from freesound.org)
+---------------------------------------------------
+Go to: https://freesound.org
+Create a free account, then search and download:
+
+  collect.wav     — Search: "coin collect short"
+                    Recommended: "Pickup_01.wav" by LittleRobotSoundFactory
+
+  hit.wav         — Search: "bird hit impact short"
+                    Recommended: "Hit_02.wav" by LittleRobotSoundFactory
+
+  level_complete.wav — Search: "level complete fanfare short"
+                    Recommended: "jingles_PIZZA08.wav" by sirkoto51
+
+  game_over.wav   — Search: "game over sad short"
+                    Recommended: "Negative_Beeps.wav" by Breviceps
+
+  shoot.wav       — Search: "whoosh short feather"
+                    Recommended: "Swish 1.wav" by dklon
+
+All must be saved as .wav files in Resources/Sounds/
+
+
+STEP 4 — PLACE FILES
+---------------------------------------------------
+Your project folder should look like:
+
+  EagleQuestNestRescue.csproj
+  Program.cs
+  Enums/
+  Interfaces/
+  GameObjects/
+  Managers/
+  Game/
+  Forms/
+  Resources/
+    Images/
+      eagle.png
+      crow.png
+      hawk.png
+      fish.png
+      rabbit.png
+      rock.png
+      cloud_dark.png
+      plane.png
+      feather.png
+      shield.png
+      speed.png
+    Sounds/
+      collect.wav
+      hit.wav
+      level_complete.wav
+      game_over.wav
+      shoot.wav
+
+
+STEP 5 — COPY TO BUILD OUTPUT
+---------------------------------------------------
+In Visual Studio, for each file in Resources/:
+  Right-click the file → Properties
+  Set "Copy to Output Directory" = "Copy if newer"
+
+This makes sure the images/sounds are in the same
+folder as your .exe when you build.
+
+
+STEP 6 — BUILD AND RUN
+---------------------------------------------------
+  1. Open EagleQuestNestRescue.csproj in Visual Studio
+  2. Press Ctrl+Shift+B to Build
+  3. Press F5 to Run
+  4. The Start Screen should appear!
+
+
+VIVA TIP:
+---------------------------------------------------
+If teacher asks about resources:
+"Sir, I downloaded free open-source assets from kenney.nl
+which provides game assets under Creative Commons license.
+I loaded them using Image.FromFile() in the Game class
+inside a try-catch block so the game still works even if
+an image file is missing."
