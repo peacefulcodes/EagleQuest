@@ -96,7 +96,7 @@ namespace EagleQuest.GameObjects
             {
                 shieldTimer--;
                 if (shieldTimer <= 0)
-                    isShielded = false;
+                    DeactivateShield();
             }
 
             // Invincibility after hit countdown
@@ -189,6 +189,14 @@ namespace EagleQuest.GameObjects
             Sprite.BackColor = Color.FromArgb(100, Color.CornflowerBlue);
         }
 
+        // Deactivates the shield and clears the blue tint
+        private void DeactivateShield()
+        {
+            isShielded  = false;
+            shieldTimer = 0;
+            Sprite.BackColor = Color.Transparent;
+        }
+
         public void ActivateSpeedBoost(int duration)
         {
             isSpeedBoosted  = true;
@@ -225,9 +233,25 @@ namespace EagleQuest.GameObjects
         {
             if (!IsAlive) return;
             if (invincibleTimer > 0) return; // can't be hurt right now
-            if ((other is Enemy || other is Obstacle) && !isShielded)
+
+            // SceneryOnly rocks (Level 2 / Level 3 background rocks) do NOT damage
+            RockObstacle rock = other as RockObstacle;
+            if (rock != null && rock.SceneryOnly) return;
+
+            if (other is Enemy || other is Obstacle)
             {
-                LoseLife();
+                if (isShielded)
+                {
+                    // Shield absorbs the hit — deactivate shield, no life loss
+                    DeactivateShield();
+                    // Grant a short invincibility window so one collision event
+                    // doesn't fire multiple times (same as a normal hit)
+                    invincibleTimer = 20;
+                }
+                else
+                {
+                    LoseLife();
+                }
             }
         }
     }

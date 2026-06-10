@@ -6,7 +6,8 @@ using System.Windows.Forms;
 namespace EagleQuest.Forms
 {
     // The first screen the player sees.
-    // Dark night sky, golden title, Play / How To Play / Exit buttons.
+    // Warm amber sunrise sky, animated clouds, mountain silhouettes,
+    // and a golden adventure-style title.
 
     public class StartForm : Form
     {
@@ -30,62 +31,71 @@ namespace EagleQuest.Forms
             this.StartPosition   = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox     = false;
-            this.BackColor       = Color.Black;
+            this.BackColor       = Color.FromArgb(255, 154, 60); // warm amber fallback
             this.DoubleBuffered  = true;
         }
 
         private void InitializeControls()
         {
-            int formW  = 900;
-            int btnW   = 220;
-            int centerX = (formW - btnW) / 2;  // 340 — centers a 220px button
+            int formW   = 900;
+            int btnW    = 240;
+            int centerX = (formW - btnW) / 2;  // centers button
 
-            // ── PLAY BUTTON ──────────────────────────────
+            // ── PLAY BUTTON (large, prominent, golden) ────────
             btnPlay = new Button();
-            btnPlay.Text      = "▶   PLAY";
-            btnPlay.Size      = new Size(btnW, 52);
-            btnPlay.Location  = new Point(centerX, 405);
+            btnPlay.Text      = "▶   PLAY NOW";
+            btnPlay.Size      = new Size(btnW, 56);
+            btnPlay.Location  = new Point(centerX, 390);
             btnPlay.FlatStyle = FlatStyle.Flat;
-            btnPlay.FlatAppearance.BorderColor = Color.FromArgb(212, 168, 67);
+            btnPlay.FlatAppearance.BorderColor = Color.FromArgb(255, 220, 80);
             btnPlay.FlatAppearance.BorderSize  = 2;
-            btnPlay.BackColor  = Color.FromArgb(175, 125, 25);
-            btnPlay.ForeColor  = Color.FromArgb(40, 20, 0);
-            btnPlay.Font       = new Font("Georgia", 15, FontStyle.Bold);
+            btnPlay.BackColor  = Color.FromArgb(210, 140, 20);
+            btnPlay.ForeColor  = Color.FromArgb(255, 255, 220);
+            btnPlay.Font       = new Font("Georgia", 16, FontStyle.Bold);
             btnPlay.Cursor     = Cursors.Hand;
             btnPlay.Click     += BtnPlay_Click;
 
-            // ── HOW TO PLAY BUTTON ────────────────────────
-            int smallW = 104;
-            int gap    = 10;
+            // Hover effects
+            btnPlay.MouseEnter += (s, e) => btnPlay.BackColor = Color.FromArgb(240, 170, 30);
+            btnPlay.MouseLeave += (s, e) => btnPlay.BackColor = Color.FromArgb(210, 140, 20);
+
+            // ── HOW TO PLAY & EXIT (smaller, aligned side by side) ──
+            int smallW = 110;
+            int gap    = 14;
             int totalSmall = smallW * 2 + gap;
-            int smallStartX = (formW - totalSmall) / 2;  // centers the pair
+            int smallStartX = (formW - totalSmall) / 2;
 
             btnHowToPlay = new Button();
             btnHowToPlay.Text      = "How To Play";
-            btnHowToPlay.Size      = new Size(smallW, 36);
-            btnHowToPlay.Location  = new Point(smallStartX, 472);
+            btnHowToPlay.Size      = new Size(smallW, 38);
+            btnHowToPlay.Location  = new Point(smallStartX, 462);
             btnHowToPlay.FlatStyle = FlatStyle.Flat;
-            btnHowToPlay.FlatAppearance.BorderColor = Color.FromArgb(120, 100, 60);
+            btnHowToPlay.FlatAppearance.BorderColor = Color.FromArgb(190, 145, 50);
             btnHowToPlay.FlatAppearance.BorderSize  = 1;
-            btnHowToPlay.BackColor = Color.FromArgb(30, 25, 10);
-            btnHowToPlay.ForeColor = Color.FromArgb(200, 180, 120);
-            btnHowToPlay.Font      = new Font("Segoe UI", 9);
+            btnHowToPlay.BackColor = Color.FromArgb(100, 70, 10);
+            btnHowToPlay.ForeColor = Color.FromArgb(255, 235, 170);
+            btnHowToPlay.Font      = new Font("Segoe UI", 9, FontStyle.Bold);
             btnHowToPlay.Cursor    = Cursors.Hand;
             btnHowToPlay.Click    += BtnHowToPlay_Click;
 
-            // ── EXIT BUTTON ───────────────────────────────
+            btnHowToPlay.MouseEnter += (s, e) => btnHowToPlay.BackColor = Color.FromArgb(130, 95, 20);
+            btnHowToPlay.MouseLeave += (s, e) => btnHowToPlay.BackColor = Color.FromArgb(100, 70, 10);
+
             btnExit = new Button();
             btnExit.Text      = "Exit";
-            btnExit.Size      = new Size(smallW, 36);
-            btnExit.Location  = new Point(smallStartX + smallW + gap, 472);
+            btnExit.Size      = new Size(smallW, 38);
+            btnExit.Location  = new Point(smallStartX + smallW + gap, 462);
             btnExit.FlatStyle = FlatStyle.Flat;
-            btnExit.FlatAppearance.BorderColor = Color.FromArgb(120, 100, 60);
+            btnExit.FlatAppearance.BorderColor = Color.FromArgb(160, 80, 50);
             btnExit.FlatAppearance.BorderSize  = 1;
-            btnExit.BackColor = Color.FromArgb(30, 25, 10);
-            btnExit.ForeColor = Color.FromArgb(200, 180, 120);
-            btnExit.Font      = new Font("Segoe UI", 9);
+            btnExit.BackColor = Color.FromArgb(90, 45, 15);
+            btnExit.ForeColor = Color.FromArgb(255, 200, 160);
+            btnExit.Font      = new Font("Segoe UI", 9, FontStyle.Bold);
             btnExit.Cursor    = Cursors.Hand;
             btnExit.Click    += BtnExit_Click;
+
+            btnExit.MouseEnter += (s, e) => btnExit.BackColor = Color.FromArgb(120, 60, 20);
+            btnExit.MouseLeave += (s, e) => btnExit.BackColor = Color.FromArgb(90, 45, 15);
 
             this.Controls.AddRange(new Control[] { btnPlay, btnHowToPlay, btnExit });
         }
@@ -100,13 +110,13 @@ namespace EagleQuest.Forms
 
         private void AnimTimer_Tick(object sender, EventArgs e)
         {
-            cloudOffset += 0.4f;
-            if (cloudOffset > this.Width + 100)
+            cloudOffset += 0.5f;
+            if (cloudOffset > this.Width + 200)
                 cloudOffset = -200;
             this.Invalidate(); // Redraw the form
         }
 
-        // OnPaint draws the entire beautiful start screen background
+        // OnPaint draws the warm sunrise adventure background
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -115,79 +125,70 @@ namespace EagleQuest.Forms
             int W = this.ClientSize.Width;
             int H = this.ClientSize.Height;
 
-            // ── SKY GRADIENT ─────────────────────────────
+            // ── WARM SUNRISE SKY GRADIENT ─────────────────
             using (LinearGradientBrush skyBrush = new LinearGradientBrush(
                 new Point(0, 0), new Point(0, H),
-                Color.FromArgb(10, 8, 32), Color.FromArgb(30, 50, 110)))
+                Color.FromArgb(255, 175, 70),   // warm amber at top
+                Color.FromArgb(135, 206, 235)))  // sky blue at horizon
             {
                 g.FillRectangle(skyBrush, 0, 0, W, H);
             }
 
-            // ── STARS ────────────────────────────────────
-            DrawStars(g, W, H);
+            // ── SUN ───────────────────────────────────────
+            DrawSun(g, W - 120, 65);
 
-            // ── MOON ─────────────────────────────────────
-            DrawMoon(g);
-
-            // ── MOVING CLOUDS ────────────────────────────
+            // ── MOVING WARM CLOUDS ────────────────────────
             DrawStartClouds(g, W);
 
-            // ── MOUNTAIN SILHOUETTES ─────────────────────
+            // ── MOUNTAIN SILHOUETTES (green, earthy) ─────
             DrawMountainSilhouettes(g, W, H);
+
+            // ── GROUND STRIP ─────────────────────────────
+            using (LinearGradientBrush gr = new LinearGradientBrush(
+                new Point(0, H - 90), new Point(0, H),
+                Color.FromArgb(74, 140, 55), Color.FromArgb(45, 90, 30)))
+            {
+                g.FillRectangle(gr, 0, H - 90, W, 90);
+            }
 
             // ── TREE SILHOUETTES ─────────────────────────
             DrawTreeSilhouettes(g, W, H);
 
-            // ── TITLE TEXT ───────────────────────────────
+            // ── TITLE TEXT ────────────────────────────────
             DrawTitle(g, W);
 
-            // ── SUBTITLE ─────────────────────────────────
+            // ── TAGLINE ───────────────────────────────────
             using (Font subFont = new Font("Georgia", 13, FontStyle.Italic))
-            using (SolidBrush subBrush = new SolidBrush(Color.FromArgb(180, 160, 100)))
+            using (SolidBrush subBrush = new SolidBrush(Color.FromArgb(220, 80, 40, 5)))
             {
                 string sub = "\"Fly. Collect. Return. Save the nest.\"";
                 SizeF subSize = g.MeasureString(sub, subFont);
-                g.DrawString(sub, subFont, subBrush,
-                    (W - subSize.Width) / 2, 370);
+                g.DrawString(sub, subFont, subBrush, (W - subSize.Width) / 2, 355);
             }
-        }
 
-        private void DrawStars(Graphics g, int W, int H)
-        {
-            // Fixed stars — deterministic pattern using sin/cos
-            Random rng = new Random(42); // fixed seed = same stars every frame
-            for (int i = 0; i < 80; i++)
+            // ── BUTTON PANEL BACKGROUND ───────────────────
+            using (SolidBrush panelBrush = new SolidBrush(Color.FromArgb(80, 40, 15, 0)))
             {
-                int sx = rng.Next(0, W);
-                int sy = rng.Next(0, H / 2 + 30);
-                int size = rng.Next(1, 3);
-                int alpha = rng.Next(120, 255);
-                using (SolidBrush starBrush = new SolidBrush(Color.FromArgb(alpha, 255, 255, 255)))
-                {
-                    g.FillEllipse(starBrush, sx, sy, size, size);
-                }
+                g.FillRoundedRect(panelBrush, (W - 280) / 2 - 20, 378, 320, 132, 14);
             }
         }
 
-        private void DrawMoon(Graphics g)
+        private void DrawSun(Graphics g, int cx, int cy)
         {
-            // Glowing moon
-            int mx = 120, my = 80, mr = 50;
-            using (SolidBrush glowBrush = new SolidBrush(Color.FromArgb(30, 212, 200, 160)))
-                g.FillEllipse(glowBrush, mx - 20, my - 20, (mr + 20) * 2, (mr + 20) * 2);
-            using (SolidBrush moonBrush = new SolidBrush(Color.FromArgb(212, 200, 168)))
-                g.FillEllipse(moonBrush, mx, my, mr * 2, mr * 2);
-            // Shadow to make crescent
-            using (SolidBrush shadowBrush = new SolidBrush(Color.FromArgb(26, 42, 90)))
-                g.FillEllipse(shadowBrush, mx + 18, my - 10, mr * 2, mr * 2);
+            // Outer glow
+            using (SolidBrush glowBrush = new SolidBrush(Color.FromArgb(50, 255, 230, 0)))
+                g.FillEllipse(glowBrush, cx - 50, cy - 50, 160, 160);
+            // Main sun disc
+            using (SolidBrush sunBrush = new SolidBrush(Color.FromArgb(255, 225, 20)))
+                g.FillEllipse(sunBrush, cx - 30, cy - 30, 110, 110);
         }
 
         private void DrawStartClouds(Graphics g, int W)
         {
-            // Two slow-moving cloud layers
-            DrawCloud(g, (int)(100 + cloudOffset * 0.3f), 55, 160, 40, Color.FromArgb(25, 255, 255, 255));
-            DrawCloud(g, (int)(400 + cloudOffset * 0.5f), 40, 130, 32, Color.FromArgb(20, 255, 255, 255));
-            DrawCloud(g, (int)(650 + cloudOffset * 0.2f), 70, 100, 30, Color.FromArgb(18, 255, 255, 255));
+            // Three warm-tinted cloud layers drifting at different speeds
+            DrawCloud(g, (int)(80  + cloudOffset * 0.4f), 70,  190, 52, Color.FromArgb(160, 255, 250, 230));
+            DrawCloud(g, (int)(380 + cloudOffset * 0.6f), 48,  150, 40, Color.FromArgb(140, 255, 245, 210));
+            DrawCloud(g, (int)(650 + cloudOffset * 0.25f),100, 110, 32, Color.FromArgb(120, 255, 248, 220));
         }
 
         private void DrawCloud(Graphics g, int x, int y, int w, int h, Color color)
@@ -196,77 +197,94 @@ namespace EagleQuest.Forms
             {
                 g.FillEllipse(b, x, y, w, h);
                 g.FillEllipse(b, x + w / 4, y - h / 3, w * 2 / 3, h);
-                g.FillEllipse(b, x + w / 2, y, w / 2, h * 2 / 3);
+                g.FillEllipse(b, x + w / 2, y + h / 6, w / 2, h * 2 / 3);
             }
         }
 
         private void DrawMountainSilhouettes(Graphics g, int W, int H)
         {
-            Color darkMtn = Color.FromArgb(10, 15, 30);
-            Point[][] mountains = {
-                new Point[]{ new Point(-10,H), new Point(90,250), new Point(200,H) },
-                new Point[]{ new Point(80, H), new Point(210,200), new Point(340,H) },
-                new Point[]{ new Point(280,H), new Point(400,175), new Point(520,H) },
-                new Point[]{ new Point(440,H), new Point(560,195), new Point(680,H) },
-                new Point[]{ new Point(620,H), new Point(740,215), new Point(910,H) },
-            };
-            using (SolidBrush mtnBrush = new SolidBrush(darkMtn))
+            // Deep green mountain silhouettes — warm adventure feel
+            Color mtnColor = Color.FromArgb(45, 95, 40);
+            Color mtnDark  = Color.FromArgb(30, 72, 28);
+            Point[][] mountains =
             {
-                foreach (Point[] mtn in mountains)
-                    g.FillPolygon(mtnBrush, mtn);
+                new Point[]{ new Point(-10,H), new Point(95, 248), new Point(200,H) },
+                new Point[]{ new Point(65, H), new Point(215,225), new Point(365,H) },
+                new Point[]{ new Point(210,H), new Point(352,195), new Point(494,H) },
+                new Point[]{ new Point(415,H), new Point(548,192), new Point(681,H) },
+                new Point[]{ new Point(600,H), new Point(735,205), new Point(870,H) },
+                new Point[]{ new Point(790,H), new Point(928,202), new Point(W+10,H) },
+            };
+            Color[] colors = { mtnColor, mtnDark, mtnColor, mtnDark, mtnColor, mtnDark };
+            for (int i = 0; i < mountains.Length; i++)
+            {
+                using (SolidBrush mtnBrush = new SolidBrush(colors[i]))
+                    g.FillPolygon(mtnBrush, mountains[i]);
             }
         }
 
         private void DrawTreeSilhouettes(Graphics g, int W, int H)
         {
-            Color darkTree = Color.FromArgb(5, 8, 18);
-            int[] treeX = { 18, 55, 820, 860 };
-            using (SolidBrush treeBrush = new SolidBrush(darkTree))
+            Color darkTree = Color.FromArgb(25, 60, 15);
+            int[] treeX = { 12, 48, 830, 868 };
+            foreach (int tx in treeX)
             {
-                foreach (int tx in treeX)
-                {
-                    // Trunk
-                    g.FillRectangle(treeBrush, tx + 4, H - 80, 8, 80);
-                    // Layers of foliage
-                    Point[] tri1 = { new Point(tx, H - 60), new Point(tx + 8, H - 120), new Point(tx + 16, H - 60) };
-                    Point[] tri2 = { new Point(tx - 5, H - 85), new Point(tx + 8, H - 150), new Point(tx + 21, H - 85) };
-                    g.FillPolygon(treeBrush, tri1);
-                    g.FillPolygon(treeBrush, tri2);
-                }
+                DrawTree(g, tx, H - 72, darkTree);
+            }
+        }
+
+        private void DrawTree(Graphics g, int x, int baseY, Color color)
+        {
+            using (SolidBrush b = new SolidBrush(color))
+            {
+                // Trunk
+                g.FillRectangle(b, x + 4, baseY - 50, 10, 50);
+                // Foliage layers
+                g.FillPolygon(b, new[] {
+                    new Point(x,    baseY - 50),
+                    new Point(x+9,  baseY - 90),
+                    new Point(x+18, baseY - 50) });
+                g.FillPolygon(b, new[] {
+                    new Point(x-5,  baseY - 72),
+                    new Point(x+9,  baseY - 145),
+                    new Point(x+23, baseY - 72) });
             }
         }
 
         private void DrawTitle(Graphics g, int W)
         {
-            // Golden glow behind title
-            using (Font glowFont = new Font("Georgia", 40, FontStyle.Bold))
-            using (SolidBrush glowBrush = new SolidBrush(Color.FromArgb(40, 212, 168, 67)))
-            {
-                g.DrawString("EAGLE QUEST", glowFont, glowBrush, (W - 500) / 2 - 3, 268);
-                g.DrawString("EAGLE QUEST", glowFont, glowBrush, (W - 500) / 2 + 3, 272);
-            }
-            // Main title
-            using (Font titleFont = new Font("Georgia", 40, FontStyle.Bold))
-            using (SolidBrush titleBrush = new SolidBrush(Color.FromArgb(220, 185, 80)))
+            // Drop shadow
+            using (Font titleFont = new Font("Georgia", 42, FontStyle.Bold))
+            using (SolidBrush shadowBrush = new SolidBrush(Color.FromArgb(100, 60, 30, 0)))
             {
                 string title = "EAGLE QUEST";
                 SizeF ts = g.MeasureString(title, titleFont);
-                g.DrawString(title, titleFont, titleBrush, (W - ts.Width) / 2, 268);
+                float tx = (W - ts.Width) / 2;
+                g.DrawString(title, titleFont, shadowBrush, tx + 3, 253);
             }
-            // Subtitle
-            using (Font subFont = new Font("Georgia", 18, FontStyle.Italic))
-            using (SolidBrush subBrush = new SolidBrush(Color.FromArgb(200, 175, 130)))
+
+            // Main title — deep warm brown with golden outline feel
+            using (Font titleFont = new Font("Georgia", 42, FontStyle.Bold))
+            using (SolidBrush titleBrush = new SolidBrush(Color.FromArgb(215, 145, 20)))
+            {
+                string title = "EAGLE QUEST";
+                SizeF ts = g.MeasureString(title, titleFont);
+                g.DrawString(title, titleFont, titleBrush, (W - ts.Width) / 2, 250);
+            }
+
+            // Subtitle — "Nest Rescue"
+            using (Font subFont = new Font("Georgia", 20, FontStyle.Italic))
+            using (SolidBrush subBrush = new SolidBrush(Color.FromArgb(180, 100, 45, 5)))
             {
                 string sub = "Nest Rescue";
                 SizeF ss = g.MeasureString(sub, subFont);
-                g.DrawString(sub, subFont, subBrush, (W - ss.Width) / 2, 320);
+                g.DrawString(sub, subFont, subBrush, (W - ss.Width) / 2, 305);
             }
         }
 
         // ── EVENT HANDLERS ────────────────────────────────
         private void PlayButtonSound()
         {
-            // Simple inline button click sound — no SoundManager needed here
             try
             {
                 var sp = new System.Media.SoundPlayer(EagleQuest.Properties.Resources.bottom_click);
@@ -302,6 +320,26 @@ namespace EagleQuest.Forms
         {
             if (disposing) { animTimer?.Stop(); animTimer?.Dispose(); }
             base.Dispose(disposing);
+        }
+    }
+
+    // ── GRAPHICS EXTENSION HELPER ────────────────────────
+    // Allows drawing rounded rectangles for the button panel background
+    internal static class GraphicsExtensions
+    {
+        public static void FillRoundedRect(this Graphics g, Brush brush,
+            float x, float y, float w, float h, float radius)
+        {
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                float d = radius * 2;
+                path.AddArc(x, y, d, d, 180, 90);
+                path.AddArc(x + w - d, y, d, d, 270, 90);
+                path.AddArc(x + w - d, y + h - d, d, d, 0, 90);
+                path.AddArc(x, y + h - d, d, d, 90, 90);
+                path.CloseFigure();
+                g.FillPath(brush, path);
+            }
         }
     }
 }

@@ -222,24 +222,52 @@ namespace EagleQuest.Game
 
             if (level == 1)
             {
+                // ── ENEMIES ──────────────────────────────────────
                 CreateCrow(130, sT + 50);
                 CreateCrow(440, sT + 90);
-                CreateRock(300, sT + 130);
-                CreateRock(540, sB - 50);
-                // 5 prey items spread across play area — more active than before
-                CreatePrey(130, sT + 100);
-                CreatePrey(260, sT + 60);
-                CreatePrey(390, sT + 150);
-                CreatePrey(520, sT + 85);
-                CreatePrey(650, sT + 120);
+
+                // ── ROCKS (damage obstacles in Level 1) ──────────
+                CreateRock(300, sT + 130, false);  // causes damage
+                CreateRock(540, sB - 50,  false);  // causes damage
+
+                // ── MOUNTAIN TIP HITBOXES (Level 1 only) ─────────
+                // Danger zones are sized to match the visible painted tip area.
+                // Mountain peaks from GameForm.PaintLevel1:
+                //   Mtn(-10, H, 95,  198) → tip ~(75,  210) size 40x40
+                //   Mtn( 65, H, 215, 172) → tip ~(195, 184) size 40x40
+                //   Mtn(210, H, 352, 150) → tip ~(332, 162) size 40x40
+                //   Mtn(415, H, 548, 145) → tip ~(528, 157) size 40x40
+                //   Mtn(600, H, 735, 160) → tip ~(715, 172) size 40x40
+                //   Mtn(790, H, 928, 156) → tip ~(908, 168) size 40x40
+                CreateMountainTip( 75, 210);
+                CreateMountainTip(195, 184);
+                CreateMountainTip(332, 162);
+                CreateMountainTip(528, 157);
+                CreateMountainTip(715, 172);
+                CreateMountainTip(870, 168); // last mountain visible tip
+
+                // ── PREY — placed in gaps BETWEEN mountains ───────
+                // Gap 1: between mountain 1 (tip ~95) and mountain 2 (tip ~215) → ~x=155, mid air
+                CreatePrey(150, sT + 110);
+                // Gap 2: between mountain 2 (tip ~215) and mountain 3 (tip ~352) → ~x=285
+                CreatePrey(285, sT + 80);
+                // Gap 3: between mountain 3 (tip ~352) and mountain 4 (tip ~548) → ~x=450
+                CreatePrey(450, sT + 95);
+                // Gap 4: between mountain 4 (tip ~548) and mountain 5 (tip ~735) → ~x=640
+                CreatePrey(640, sT + 105);
+                // Gap 5: between mountain 5 (tip ~735) and mountain 6 (tip ~928) → ~x=830
+                CreatePrey(820, sT + 90);
             }
             else if (level == 2)
             {
                 CreateCrow(110, sT + 55);
                 CreateCrow(370, sT + 105);
                 CreateHawk(580, sT + 35);
-                CreateRock(245, sT + 135);
-                CreateRock(490, sB - 70);
+
+                // Level 2: rocks are background scenery only — NO damage
+                CreateRock(245, sT + 135, true);  // scenery only
+                CreateRock(490, sB - 70,  true);  // scenery only
+
                 CreateStormCloud(330, sT + 65);
                 // 5 prey items
                 CreatePrey(150, sT + 85);
@@ -257,7 +285,10 @@ namespace EagleQuest.Game
                 CreateMilitaryPlane(formWidth + 20, sT + 45);
                 CreateStormCloud(215, sT + 75);
                 CreateStormCloud(510, sT + 95);
-                CreateRock(330, sB - 95);
+
+                // Level 3: rock is background scenery only — NO damage
+                CreateRock(330, sB - 95, true);  // scenery only
+
                 // 7 prey items
                 int[] px = { 100, 210, 325, 435, 560, 175, 400 };
                 int[] py = { sT+85, sT+165, sT+95, sB-125, sT+125, sB-95, sB-145 };
@@ -296,10 +327,30 @@ namespace EagleQuest.Game
             gameObjects.Add(new MilitaryPlane(pb, formWidth, formHeight, PlaneImage));
         }
 
-        private void CreateRock(int x, int y)
+        // Creates a RockObstacle.  sceneryOnly=true means it does NOT damage the eagle.
+        private void CreateRock(int x, int y, bool sceneryOnly)
         {
             PictureBox pb = MakePB(x, y, 55, 42, RockImage);
-            gameObjects.Add(new RockObstacle(pb, formWidth, formHeight));
+            RockObstacle rock = new RockObstacle(pb, formWidth, formHeight);
+            rock.SceneryOnly = sceneryOnly;
+            gameObjects.Add(rock);
+        }
+
+        // Creates an invisible MountainTipObstacle — used in Level 1 only.
+        // The PictureBox is transparent, sized to the visible dangerous tip area.
+        private void CreateMountainTip(int x, int y)
+        {
+            PictureBox pb = new PictureBox();
+            pb.Size      = new Size(40, 40);
+            pb.Left      = x;
+            pb.Top       = y;
+            pb.BackColor = Color.Transparent;
+            pb.SizeMode  = PictureBoxSizeMode.StretchImage;
+            pb.Image     = null; // invisible — hitbox only
+            gameForm.Controls.Add(pb);
+            // Send to back so it doesn't obscure game objects visually
+            pb.SendToBack();
+            gameObjects.Add(new MountainTipObstacle(pb, formWidth, formHeight));
         }
 
         private void CreateStormCloud(int x, int y)
