@@ -309,7 +309,7 @@ namespace EagleQuest.Forms
                 "  ↑  ↓  ←  →    Move the eagle\r\n" +
                 "  SPACE          Fire feather (Level 3 only)\r\n\r\n" +
                 "OBJECTIVE\r\n" +
-                "  Level 1 — Collect 3 prey, return to nest  (60s)\r\n" +
+                "  Level 1 — Collect 5 prey, return to nest  (60s)\r\n" +
                 "  Level 2 — Collect 5 prey, return to nest  (50s)\r\n" +
                 "  Level 3 — Collect 7 prey, return to nest  (45s)\r\n\r\n" +
                 "HOW TO WIN A LEVEL\r\n" +

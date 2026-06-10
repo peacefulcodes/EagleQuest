@@ -59,7 +59,7 @@ namespace EagleQuest.Managers
             // Each level: more food needed, less time
             if (level == 1)
             {
-                foodRequired = 3;
+                foodRequired = 5;
                 timeLeft = 60;
             }
             else if (level == 2)
