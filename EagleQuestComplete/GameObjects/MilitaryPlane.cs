@@ -5,10 +5,7 @@ using System.Windows.Forms;
 
 namespace EagleQuest.GameObjects
 {
-    // VIVA: MilitaryPlane is the Level 3 special enemy.
-    // It inherits Enemy : GameObject — same inheritance chain.
-    // Its Update() flies across AND fires BulletObstacles.
-    // This is POLYMORPHISM — the game loop just calls Update().
+    
 
     public class MilitaryPlane : Enemy
     {

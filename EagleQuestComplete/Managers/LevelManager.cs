@@ -1,9 +1,6 @@
 namespace EagleQuest.Managers
 {
-    // VIVA: LevelManager controls level progression.
-    // It knows how many food items are required per level,
-    // how much time is allowed, and when to move to the next level.
-    // All data is private with controlled public access — ENCAPSULATION.
+    
 
     public class LevelManager
     {
@@ -37,7 +34,6 @@ namespace EagleQuest.Managers
             get { return timeLeft <= 0; }
         }
 
-        // Timer ticks at 100ms (10 ticks = 1 second)
         private int tickCounter;
         private const int TICKS_PER_SECOND = 10;
 
@@ -51,12 +47,10 @@ namespace EagleQuest.Managers
         public void LoadLevel(int level)
         {
             currentLevel = level;
-            // Start tickCounter at -5 so first second takes 1.5 seconds
-            // This gives the player a brief moment before countdown starts
-            // and prevents leftover tickCounter state from previous level
+            
             tickCounter = -5;
 
-            // Each level: more food needed, less time
+           
             if (level == 1)
             {
                 foodRequired = 5;
@@ -74,7 +68,7 @@ namespace EagleQuest.Managers
             }
         }
 
-        // Called every game tick to count down time
+        
         public void Tick()
         {
             tickCounter++;

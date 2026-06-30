@@ -285,14 +285,14 @@ namespace EagleQuest.Forms
             this.StartPosition   = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox     = false;
-            this.BackColor       = Color.FromArgb(38, 22, 8);  // warm dark brown
+            this.BackColor       = Color.FromArgb(38, 22, 8);  
             this.DoubleBuffered  = true;
 
             // ── TITLE ───────────────────────────────────────
             Label lblTitle = new Label();
             lblTitle.Text      = "🦅  Eagle Quest — How To Play";
             lblTitle.Font      = new Font("Georgia", 17, FontStyle.Bold);
-            lblTitle.ForeColor = Color.FromArgb(255, 210, 80);  // warm gold
+            lblTitle.ForeColor = Color.FromArgb(255, 210, 80);  
             lblTitle.Size      = new Size(520, 42);
             lblTitle.Location  = new Point(18, 14);
             lblTitle.TextAlign = ContentAlignment.MiddleCenter;
@@ -304,12 +304,12 @@ namespace EagleQuest.Forms
             divider.Location  = new Point(28, 58);
 
             // ── INSTRUCTIONS TEXT BOX ────────────────────────
-            // Warm background, clear warm-white text, no border (blends with form)
+            
             RichTextBox rtb = new RichTextBox();
             rtb.Size        = new Size(502, 370);
             rtb.Location    = new Point(26, 68);
-            rtb.BackColor   = Color.FromArgb(55, 32, 10);   // warm dark brown panel
-            rtb.ForeColor   = Color.FromArgb(245, 230, 200); // warm cream text
+            rtb.BackColor   = Color.FromArgb(55, 32, 10);   
+            rtb.ForeColor   = Color.FromArgb(245, 230, 200); 
             rtb.Font        = new Font("Segoe UI", 10);
             rtb.ReadOnly    = true;
             rtb.BorderStyle = BorderStyle.None;
@@ -350,10 +350,10 @@ namespace EagleQuest.Forms
                 "  • Timer flashing RED means hurry — return to nest fast!\r\n" +
                 "  • You keep your score across all three levels.";
 
-            // Bold the section headings by applying formatting
+            
             ApplySectionHeadings(rtb);
 
-            // ── CLOSE BUTTON ─────────────────────────────────
+            
             Button btnClose = new Button();
             btnClose.Text      = "Got it!  ▶ Play";
             btnClose.Size      = new Size(170, 42);
@@ -373,7 +373,7 @@ namespace EagleQuest.Forms
             this.Controls.AddRange(new Control[] { lblTitle, divider, rtb, btnClose });
         }
 
-        // Apply gold bold formatting to section headings inside the RichTextBox
+        
         private void ApplySectionHeadings(RichTextBox rtb)
         {
             string[] headings = { "STORY", "CONTROLS", "OBJECTIVE",
@@ -395,7 +395,7 @@ namespace EagleQuest.Forms
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            // Warm gradient overlay for depth
+            
             using (LinearGradientBrush bg = new LinearGradientBrush(
                 new Point(0, 0), new Point(0, this.Height),
                 Color.FromArgb(45, 25, 8), Color.FromArgb(28, 14, 4)))

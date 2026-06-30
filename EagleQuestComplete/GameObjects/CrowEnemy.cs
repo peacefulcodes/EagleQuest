@@ -3,19 +3,17 @@ using System.Windows.Forms;
 
 namespace EagleQuest.GameObjects
 {
-    // VIVA: CrowEnemy IS-A Enemy IS-A GameObject — three level inheritance chain.
-    // Demonstrates POLYMORPHISM: Update() moves crow left/right AND animates wings.
-    // COMPOSITION: CrowEnemy HAS-A simple 2-frame animator for wing flap.
+    
 
     public class CrowEnemy : Enemy
     {
         private bool movingRight;
 
-        // 2-frame wing animation
-        private Image frameLeft0;   // facing left frame 0
-        private Image frameLeft1;   // facing left frame 1 (wings different)
-        private Image frameRight0;  // facing right frame 0
-        private Image frameRight1;  // facing right frame 1
+        
+        private Image frameLeft0;   
+        private Image frameLeft1;   
+        private Image frameRight0;  
+        private Image frameRight1;  
         private int animTick;
         private bool hasAnimation;
 
@@ -28,8 +26,7 @@ namespace EagleQuest.GameObjects
             hasAnimation = false;
         }
 
-        // Call this to give the crow wing-flap animation
-        // frame0 = wings mid, frame1 = wings slightly shifted
+        
         public void SetAnimationFrames(Image left0, Image left1, Image right0, Image right1)
         {
             frameLeft0   = left0;
@@ -39,13 +36,12 @@ namespace EagleQuest.GameObjects
             hasAnimation = true;
         }
 
-        // VIVA: This override moves crow AND animates its wings.
-        // Polymorphism — same Update() call as all other GameObjects.
+        
         public override void Update()
         {
             if (!IsAlive) return;
 
-            // Move left or right
+            
             if (movingRight)
             {
                 X += speed;
@@ -57,7 +53,6 @@ namespace EagleQuest.GameObjects
                 if (X <= 0) movingRight = true;
             }
 
-            // Animate wings every 3 ticks (300ms)
             if (hasAnimation)
             {
                 animTick++;

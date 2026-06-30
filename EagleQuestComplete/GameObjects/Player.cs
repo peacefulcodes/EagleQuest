@@ -4,10 +4,7 @@ using EagleQuest.Interfaces;
 
 namespace EagleQuest.GameObjects
 {
-    // VIVA: Player inherits from GameObject (IS-A relationship)
-    // and implements ICollidable.
-    // COMPOSITION: Player HAS-A EagleAnimator for wing animation + direction.
-    // ENCAPSULATION: all fields private, accessed through properties/methods.
+    
 
     public class Player : GameObject, ICollidable
     {
@@ -39,9 +36,7 @@ namespace EagleQuest.GameObjects
         public int FoodCollected { get { return foodCollected; } set { foodCollected = value; } }
         public bool IsShielded   { get { return isShielded;    } }
 
-        // VIVA: Override HitBox to match the visible eagle body area.
-        // Eagle PNG has transparent wing-tips and beak padding.
-        // Shrinking hitbox = collision only when eagle body actually touches.
+        
         public override System.Drawing.Rectangle HitBox
         {
             get
@@ -156,14 +151,14 @@ namespace EagleQuest.GameObjects
         public void LoseLife()
         {
             if (isShielded) return;
-            if (invincibleTimer > 0) return; // still invincible from last hit
+            if (invincibleTimer > 0) return; 
             lives--;
             health = 100;
-            invincibleTimer = 20; // 2 seconds of invincibility after hit
+            invincibleTimer = 20; 
             if (animator != null) animator.Reset();
         }
 
-        // Hit flash — blinks during invincibility window
+       
         public void ShowHitFlash()
         {
             Sprite.BackColor = Color.FromArgb(140, Color.OrangeRed);
@@ -174,7 +169,7 @@ namespace EagleQuest.GameObjects
             Sprite.BackColor = Color.Transparent;
         }
 
-        // Returns true if eagle is currently in invincibility window
+       
         public bool IsInvincible
         {
             get { return invincibleTimer > 0; }
@@ -228,13 +223,13 @@ namespace EagleQuest.GameObjects
             ResetForLevel();
         }
 
-        // VIVA: ICollidable — eagle reacts when touching enemies/obstacles
+        
         public void OnCollision(GameObject other)
         {
             if (!IsAlive) return;
-            if (invincibleTimer > 0) return; // can't be hurt right now
+            if (invincibleTimer > 0) return; 
 
-            // SceneryOnly rocks (Level 2 / Level 3 background rocks) do NOT damage
+            
             RockObstacle rock = other as RockObstacle;
             if (rock != null && rock.SceneryOnly) return;
 
@@ -242,10 +237,9 @@ namespace EagleQuest.GameObjects
             {
                 if (isShielded)
                 {
-                    // Shield absorbs the hit — deactivate shield, no life loss
+                    
                     DeactivateShield();
-                    // Grant a short invincibility window so one collision event
-                    // doesn't fire multiple times (same as a normal hit)
+                    
                     invincibleTimer = 20;
                 }
                 else

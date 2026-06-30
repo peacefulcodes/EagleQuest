@@ -4,9 +4,7 @@ using EagleQuest.Forms;
 
 namespace EagleQuest
 {
-    // Entry point of the application.
-    // Opens StartForm — all other forms open from there.
-
+    
     static class Program
     {
         [STAThread]

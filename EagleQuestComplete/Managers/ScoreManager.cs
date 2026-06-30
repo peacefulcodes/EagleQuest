@@ -1,8 +1,6 @@
 namespace EagleQuest.Managers
 {
-    // VIVA: ScoreManager controls the score.
-    // The score field is private — only AddScore() and Reset() can change it.
-    // This is ENCAPSULATION — data is protected inside the class.
+    
 
     public class ScoreManager
     {
@@ -29,7 +27,7 @@ namespace EagleQuest.Managers
         {
             score += points;
 
-            // Update high score if current score exceeds it
+            
             if (score > highScore)
                 highScore = score;
         }

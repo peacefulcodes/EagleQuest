@@ -461,5 +461,14 @@ namespace EagleQuest.Properties {
                 return ResourceManager.GetStream("win", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream win2 {
+            get {
+                return ResourceManager.GetStream("win2", resourceCulture);
+            }
+        }
     }
 }

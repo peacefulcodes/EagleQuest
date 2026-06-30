@@ -2,15 +2,12 @@ using System.Drawing;
 
 namespace EagleQuest.GameObjects
 {
-    // VIVA: EagleAnimator handles wing-flapping animation AND direction.
-    // It contains two sets of 3 frames: left-facing and right-facing.
-    // When player moves left, it shows left frames. Moving right shows right frames.
-    // Player class CONTAINS an EagleAnimator — this is COMPOSITION.
+    
 
     public class EagleAnimator
     {
-        private Image[] rightFrames;  // eagle facing right (default)
-        private Image[] leftFrames;   // eagle facing left (mirrored)
+        private Image[] rightFrames;  
+        private Image[] leftFrames;   
         private int currentFrame;
         private int tickCounter;
         private int frameInterval;
@@ -29,13 +26,13 @@ namespace EagleQuest.GameObjects
             facingRight   = true;
         }
 
-        // Called by Player.MoveLeft() and MoveRight() to update facing direction
+        
         public void SetDirection(bool movingRight)
         {
             facingRight = movingRight;
         }
 
-        // Called every tick — returns correct frame based on direction
+       
         public Image GetCurrentFrame()
         {
             tickCounter++;
@@ -47,7 +44,7 @@ namespace EagleQuest.GameObjects
                     currentFrame = 0;
             }
 
-            // Return left or right facing frame set
+            
             return facingRight ? rightFrames[currentFrame] : leftFrames[currentFrame];
         }
 
