@@ -23,6 +23,7 @@ namespace EagleQuest.GameObjects
             fireInterval   = 25;
             bulletImage    = bulletImg;
             BulletsToSpawn = new List<BulletObstacle>();
+            featherHitsRemaining = 3;   // Plane: 3 feather hits to destroy
         }
 
         public override void Update()

@@ -24,6 +24,7 @@ namespace EagleQuest.GameObjects
             movingRight = true;
             animTick    = 0;
             hasAnimation = false;
+            featherHitsRemaining = 1;   // Crow: 1 feather hit to destroy
         }
 
         

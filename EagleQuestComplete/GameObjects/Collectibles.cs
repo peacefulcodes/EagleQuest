@@ -117,10 +117,16 @@ namespace EagleQuest.GameObjects
 
         public void OnCollision(GameObject other)
         {
-            if (other is Enemy && IsAlive)
+            // Cast to Enemy — this covers Crow, Hawk, and MilitaryPlane.
+            // TakeFeatherHit() removes one hit point and destroys if hits reach 0.
+            // Feather then destroys itself.
+            // IMPORTANT: Enemy.OnCollision() does NOT handle feather damage,
+            // so one collision counts as exactly one hit — never twice.
+            Enemy enemy = other as Enemy;
+
+            if (enemy != null && IsAlive)
             {
-                
-                other.Destroy();
+                enemy.TakeFeatherHit();
                 Destroy();
             }
         }

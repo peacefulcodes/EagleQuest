@@ -470,5 +470,12 @@ namespace EagleQuest.Properties {
                 return ResourceManager.GetStream("win2", resourceCulture);
             }
         }
+
+        internal static System.Drawing.Bitmap startup_eagle_background {
+            get {
+                object obj = ResourceManager.GetObject("startup_eagle_background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

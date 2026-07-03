@@ -47,10 +47,14 @@ namespace EagleQuest.Managers
         public void LoadLevel(int level)
         {
             currentLevel = level;
-            
-            tickCounter = -5;
 
-           
+            // Reset the tick counter to exactly 0 whenever a level (re)loads.
+            // (Previously this was set to -5, which forced the first
+            // in-game second of every level to take 1.5 real seconds
+            // instead of 1 — the timer and the real-world clock would
+            // drift out of sync every time a level started or restarted.)
+            tickCounter = 0;
+
             if (level == 1)
             {
                 foodRequired = 5;

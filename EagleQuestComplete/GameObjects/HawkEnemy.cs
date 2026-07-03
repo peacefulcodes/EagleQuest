@@ -32,7 +32,8 @@ namespace EagleQuest.GameObjects
             diveTimer    = 0;
             animTick     = 0;
             hasAnimation = false;
-            movingLeft   = true; 
+            movingLeft   = true;
+            featherHitsRemaining = 2;   // Hawk: 2 feather hits to destroy
         }
 
         

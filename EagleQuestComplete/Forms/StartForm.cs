@@ -31,8 +31,12 @@ namespace EagleQuest.Forms
             this.StartPosition   = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox     = false;
-            this.BackColor       = Color.FromArgb(255, 154, 60); // warm amber fallback
+            this.BackColor       = Color.FromArgb(30, 30, 20); // dark fallback behind image
             this.DoubleBuffered  = true;
+
+            // Load the startup artwork from Properties.Resources — same 3:2 ratio as form
+            this.BackgroundImage       = EagleQuest.Properties.Resources.startup_eagle_background;
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void InitializeControls()
@@ -102,21 +106,21 @@ namespace EagleQuest.Forms
 
         private void InitializeAnimation()
         {
+            // Cloud animation no longer needed — background is now a resource image.
             animTimer          = new System.Windows.Forms.Timer();
-            animTimer.Interval = 50; // 20fps for smooth cloud drift
+            animTimer.Interval = 50;
             animTimer.Tick    += AnimTimer_Tick;
-            animTimer.Start();
+            // Not started — static image background needs no animation timer
         }
 
         private void AnimTimer_Tick(object sender, EventArgs e)
         {
-            cloudOffset += 0.5f;
-            if (cloudOffset > this.Width + 200)
-                cloudOffset = -200;
-            this.Invalidate(); // Redraw the form
+            // No longer used — kept for compile safety
         }
 
-        // OnPaint draws the warm sunrise adventure background
+        // OnPaint draws foreground overlays on top of the resource image background.
+        // The background image (startup_eagle_background) is set as this.BackgroundImage
+        // and is stretched to fill the form automatically — no GDI+ sky/mountain painting needed.
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -125,49 +129,24 @@ namespace EagleQuest.Forms
             int W = this.ClientSize.Width;
             int H = this.ClientSize.Height;
 
-            // ── WARM SUNRISE SKY GRADIENT ─────────────────
-            using (LinearGradientBrush skyBrush = new LinearGradientBrush(
-                new Point(0, 0), new Point(0, H),
-                Color.FromArgb(255, 175, 70),   // warm amber at top
-                Color.FromArgb(135, 206, 235)))  // sky blue at horizon
-            {
-                g.FillRectangle(skyBrush, 0, 0, W, H);
-            }
-
-            // ── SUN ───────────────────────────────────────
-            DrawSun(g, W - 120, 65);
-
-            // ── MOVING WARM CLOUDS ────────────────────────
-            DrawStartClouds(g, W);
-
-            // ── MOUNTAIN SILHOUETTES (green, earthy) ─────
-            DrawMountainSilhouettes(g, W, H);
-
-            // ── GROUND STRIP ─────────────────────────────
-            using (LinearGradientBrush gr = new LinearGradientBrush(
-                new Point(0, H - 90), new Point(0, H),
-                Color.FromArgb(74, 140, 55), Color.FromArgb(45, 90, 30)))
-            {
-                g.FillRectangle(gr, 0, H - 90, W, 90);
-            }
-
-            // ── TREE SILHOUETTES ─────────────────────────
-            DrawTreeSilhouettes(g, W, H);
-
-            // ── TITLE TEXT ────────────────────────────────
+            // ── TITLE TEXT (drawn over the image) ─────────
             DrawTitle(g, W);
 
             // ── TAGLINE ───────────────────────────────────
             using (Font subFont = new Font("Georgia", 13, FontStyle.Italic))
-            using (SolidBrush subBrush = new SolidBrush(Color.FromArgb(220, 80, 40, 5)))
+            using (SolidBrush shadowBrush = new SolidBrush(Color.FromArgb(160, 0, 0, 0)))
+            using (SolidBrush subBrush    = new SolidBrush(Color.FromArgb(255, 220, 150, 20)))
             {
                 string sub = "\"Fly. Collect. Return. Save the nest.\"";
                 SizeF subSize = g.MeasureString(sub, subFont);
-                g.DrawString(sub, subFont, subBrush, (W - subSize.Width) / 2, 355);
+                float sx = (W - subSize.Width) / 2;
+                // Subtle shadow for readability over the image
+                g.DrawString(sub, subFont, shadowBrush, sx + 2, 357);
+                g.DrawString(sub, subFont, subBrush,    sx,     355);
             }
 
-            // ── BUTTON PANEL BACKGROUND ───────────────────
-            using (SolidBrush panelBrush = new SolidBrush(Color.FromArgb(80, 40, 15, 0)))
+            // ── TRANSLUCENT PANEL BEHIND BUTTONS ─────────
+            using (SolidBrush panelBrush = new SolidBrush(Color.FromArgb(120, 10, 6, 0)))
             {
                 g.FillRoundedRect(panelBrush, (W - 280) / 2 - 20, 378, 320, 132, 14);
             }

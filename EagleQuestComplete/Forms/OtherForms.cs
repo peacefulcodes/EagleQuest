@@ -323,6 +323,7 @@ namespace EagleQuest.Forms
                 "CONTROLS\r\n" +
                 "  Arrow Keys   ↑  ↓  ←  →    Move the eagle\r\n" +
                 "  SPACE                        Fire feather  (Level 3 only)\r\n" +
+                "                               A short cooldown prevents rapid firing\r\n" +
                 "\r\n" +
                 "OBJECTIVE\r\n" +
                 "  Level 1 — Collect 3 prey,  return to nest   (60 seconds)\r\n" +
@@ -332,6 +333,17 @@ namespace EagleQuest.Forms
                 "HOW TO WIN A LEVEL\r\n" +
                 "  1. Collect all required food items.\r\n" +
                 "  2. Fly to the NEST on the right side of the screen!\r\n" +
+                "\r\n" +
+                "FEATHER ATTACK — LEVEL 3\r\n" +
+                "  Press SPACE to fire a feather upward at enemies.\r\n" +
+                "  Each feather disappears after hitting one enemy.\r\n" +
+                "\r\n" +
+                "  Crow             — 1 feather hit to destroy\r\n" +
+                "  Hawk             — 2 feather hits to destroy\r\n" +
+                "  Military Plane   — 3 feather hits to destroy\r\n" +
+                "\r\n" +
+                "  Tip: Aim carefully — the plane takes three separate hits.\r\n" +
+                "  Use feathers wisely while collecting prey and returning to nest.\r\n" +
                 "\r\n" +
                 "ENEMIES & HAZARDS\r\n" +
                 "  Crow             — Flies left and right across the sky\r\n" +
@@ -377,8 +389,8 @@ namespace EagleQuest.Forms
         private void ApplySectionHeadings(RichTextBox rtb)
         {
             string[] headings = { "STORY", "CONTROLS", "OBJECTIVE",
-                                  "HOW TO WIN A LEVEL", "ENEMIES & HAZARDS",
-                                  "POWER-UPS", "TIPS" };
+                                  "HOW TO WIN A LEVEL", "FEATHER ATTACK — LEVEL 3",
+                                  "ENEMIES & HAZARDS", "POWER-UPS", "TIPS" };
 
             foreach (string heading in headings)
             {
