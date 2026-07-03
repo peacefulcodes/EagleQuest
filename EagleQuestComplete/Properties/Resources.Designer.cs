@@ -477,5 +477,101 @@ namespace EagleQuest.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        internal static global::System.Drawing.Bitmap btn_back_h {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("btn_back_h", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap btn_back_n {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("btn_back_n", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap btn_close_h {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("btn_close_h", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap btn_close_n {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("btn_close_n", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap btn_exit_h {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("btn_exit_h", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap btn_exit_n {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("btn_exit_n", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap btn_next_h {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("btn_next_h", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap btn_next_n {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("btn_next_n", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap btn_play_h {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("btn_play_h", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap btn_play_n {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("btn_play_n", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap btn_quit_h {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("btn_quit_h", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap btn_quit_n {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("btn_quit_n", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap btn_retry_h {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("btn_retry_h", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap btn_retry_n {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("btn_retry_n", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap btn_sm_h {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("btn_sm_h", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap btn_sm_n {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("btn_sm_n", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap gameover_bg {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("gameover_bg", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap howto_header {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("howto_header", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap lvlcomp_bg {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("lvlcomp_bg", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap win_bg {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("win_bg", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap icon_crow {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("icon_crow", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap icon_eagle {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("icon_eagle", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap icon_feather {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("icon_feather", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap icon_food {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("icon_food", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap icon_hawk {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("icon_hawk", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap icon_nest {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("icon_nest", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap icon_plane {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("icon_plane", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap icon_shield {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("icon_shield", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap icon_speed {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("icon_speed", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap icon_timer {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("icon_timer", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap key_arrows {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("key_arrows", resourceCulture)); }
+        }
+        internal static global::System.Drawing.Bitmap key_space {
+            get { return (global::System.Drawing.Bitmap)(ResourceManager.GetObject("key_space", resourceCulture)); }
+        }
     }
 }

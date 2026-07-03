@@ -2,25 +2,30 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using R = EagleQuest.Properties.Resources;
 
 namespace EagleQuest.Forms
 {
-    // ════════════════════════════════════════════════════
+    // ════════════════════════════════════════════════════════════
     // LEVEL COMPLETE FORM
-    // ════════════════════════════════════════════════════
+    // ════════════════════════════════════════════════════════════
     public class LevelCompleteForm : Form
     {
         public bool PlayerChoseNext { get; private set; }
+
         private int completedLevel;
         private int currentScore;
 
         public LevelCompleteForm(int level, int score)
         {
-            completedLevel   = level;
-            currentScore     = score;
-            PlayerChoseNext  = false;
+            completedLevel = level;
+            currentScore   = score;
+            PlayerChoseNext = false;
             InitializeForm();
         }
+
+        private static Label MakeLabel(string t, Font f, Color c, int x, int y, int w, int h) => FormHelpers.MakeLabel(t,f,c,x,y,w,h);
+        private static PictureBox MakeImgBtn(Image n, Image h2, int x, int y, EventHandler e2) => FormHelpers.MakeImgBtn(n,h2,x,y,e2);
 
         private void InitializeForm()
         {
@@ -29,169 +34,119 @@ namespace EagleQuest.Forms
             this.StartPosition   = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox     = false;
-            this.BackColor       = Color.FromArgb(10, 20, 45);
             this.DoubleBuffered  = true;
+            // Background image
+            this.BackgroundImage       = EagleQuest.Properties.Resources.lvlcomp_bg;
+            this.BackgroundImageLayout = ImageLayout.Stretch;
 
-            // Title label
-            Label lblTitle = new Label();
-            lblTitle.Text      = "✓  Level " + completedLevel + " Complete!";
-            lblTitle.Font      = new Font("Georgia", 20, FontStyle.Bold);
-            lblTitle.ForeColor = Color.Gold;
-            lblTitle.Size      = new Size(440, 45);
-            lblTitle.Location  = new Point(20, 30);
-            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
 
-            // Score label
-            Label lblScore = new Label();
-            lblScore.Text      = "Score: " + currentScore.ToString("N0");
-            lblScore.Font      = new Font("Segoe UI", 14);
-            lblScore.ForeColor = Color.White;
-            lblScore.Size      = new Size(440, 35);
-            lblScore.Location  = new Point(20, 90);
-            lblScore.TextAlign = ContentAlignment.MiddleCenter;
+            Label lblTitle = MakeLabel("✓  Level " + completedLevel + " Complete!",
+                new Font("Georgia", 19, FontStyle.Bold), Color.Gold, 20, 18, 440, 44);
 
-            // Next level info
-            Label lblNext = new Label();
-            lblNext.Text      = "Level " + (completedLevel + 1) + " awaits...";
-            lblNext.Font      = new Font("Segoe UI", 11, FontStyle.Italic);
-            lblNext.ForeColor = Color.FromArgb(180, 200, 255);
-            lblNext.Size      = new Size(440, 30);
-            lblNext.Location  = new Point(20, 135);
-            lblNext.TextAlign = ContentAlignment.MiddleCenter;
+            Label lblScore = MakeLabel("Score:  " + currentScore.ToString("N0"),
+                new Font("Segoe UI", 13, FontStyle.Bold), Color.White, 20, 75, 440, 32);
 
-            // Next Level button
-            Button btnNext = MakeButton("Next Level  →", 110, 195, Color.FromArgb(40, 120, 200));
-            btnNext.Click += (s, e) => { PlayerChoseNext = true; this.Close(); };
+            Label lblNext = MakeLabel("Get ready for the next challenge!",
+                new Font("Segoe UI", 10, FontStyle.Italic), Color.FromArgb(180, 220, 180), 20, 112, 440, 26);
 
-            // Quit button
-            Button btnQuit = MakeButton("Quit", 260, 195, Color.FromArgb(80, 40, 40));
-            btnQuit.Click += (s, e) => { PlayerChoseNext = false; this.Close(); };
+            // Image buttons
+            PictureBox pbNext = MakeImgBtn(R.btn_next_n, R.btn_next_h, (480-R.btn_next_n.Width)/2, 210,
+                (s,e) => { PlayerChoseNext = true; this.Close(); });
+            PictureBox pbQuit = MakeImgBtn(R.btn_quit_n, R.btn_quit_h, (480-R.btn_quit_n.Width)/2 + 8, 215,
+                (s,e) => { this.Close(); });
 
-            this.Controls.AddRange(new Control[] {
-                lblTitle, lblScore, lblNext, btnNext, btnQuit
-            });
-        }
+            // Position side by side
+            int totalW = R.btn_next_n.Width + 16 + R.btn_quit_n.Width;
+            int startX = (480 - totalW) / 2;
+            pbNext.Location = new Point(startX, 222);
+            pbQuit.Location = new Point(startX + R.btn_next_n.Width + 16, 222);
 
-        private Button MakeButton(string text, int x, int y, Color backColor)
-        {
-            Button btn = new Button();
-            btn.Text      = text;
-            btn.Size      = new Size(130, 42);
-            btn.Location  = new Point(x, y);
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.FlatAppearance.BorderColor = Color.FromArgb(100, 100, 150);
-            btn.FlatAppearance.BorderSize  = 1;
-            btn.BackColor  = backColor;
-            btn.ForeColor  = Color.White;
-            btn.Font       = new Font("Segoe UI", 11, FontStyle.Bold);
-            btn.Cursor     = Cursors.Hand;
-            return btn;
+            this.Controls.AddRange(new Control[] { lblTitle, lblScore, lblNext, pbNext, pbQuit });
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            using (LinearGradientBrush bg = new LinearGradientBrush(
-                new Point(0, 0), new Point(0, this.Height),
-                Color.FromArgb(10, 20, 45), Color.FromArgb(20, 40, 80)))
-                e.Graphics.FillRectangle(bg, this.ClientRectangle);
+            // Gradient overlay on top third
+            using (var bg = new LinearGradientBrush(
+                new Point(0,0), new Point(0, this.Height),
+                Color.FromArgb(160, 8, 16, 30), Color.FromArgb(0, 0, 0, 0)))
+                e.Graphics.FillRectangle(bg, 0, 0, this.Width, this.Height/2);
         }
     }
 
 
-    // ════════════════════════════════════════════════════
+    // ════════════════════════════════════════════════════════════
     // GAME OVER FORM
-    // ════════════════════════════════════════════════════
+    // ════════════════════════════════════════════════════════════
     public class GameOverForm : Form
     {
+        private static Label MakeLabel(string t, Font f, Color c, int x, int y, int w, int h) => FormHelpers.MakeLabel(t,f,c,x,y,w,h);
+        private static PictureBox MakeImgBtn(Image n, Image h2, int x, int y, EventHandler e2) => FormHelpers.MakeImgBtn(n,h2,x,y,e2);
         public bool PlayerChoseRestart { get; private set; }
+
         private int finalScore;
         private int highScore;
 
         public GameOverForm(int score, int high)
         {
-            finalScore           = score;
-            highScore            = high;
-            PlayerChoseRestart   = false;
+            finalScore = score;
+            highScore  = high;
+            PlayerChoseRestart = false;
             InitializeForm();
         }
 
         private void InitializeForm()
         {
-            this.Text            = "Game Over";
-            this.Size            = new Size(480, 340);
+            this.Text            = "Eagle Quest — Game Over";
+            this.Size            = new Size(520, 380);
             this.StartPosition   = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox     = false;
-            this.BackColor       = Color.FromArgb(25, 8, 8);
             this.DoubleBuffered  = true;
+            // Stormy background
+            this.BackgroundImage       = EagleQuest.Properties.Resources.gameover_bg;
+            this.BackgroundImageLayout = ImageLayout.Stretch;
 
-            Label lblTitle = new Label();
-            lblTitle.Text      = "The Baby is Hungry...";
-            lblTitle.Font      = new Font("Georgia", 18, FontStyle.Bold);
-            lblTitle.ForeColor = Color.FromArgb(220, 60, 60);
-            lblTitle.Size      = new Size(440, 45);
-            lblTitle.Location  = new Point(20, 25);
-            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
 
-            Label lblSub = new Label();
-            lblSub.Text      = "The eagle did not return in time.";
-            lblSub.Font      = new Font("Segoe UI", 11, FontStyle.Italic);
-            lblSub.ForeColor = Color.FromArgb(200, 160, 160);
-            lblSub.Size      = new Size(440, 28);
-            lblSub.Location  = new Point(20, 78);
-            lblSub.TextAlign = ContentAlignment.MiddleCenter;
+            Label lblTitle = MakeLabel("The Baby is Hungry...",
+                new Font("Georgia", 19, FontStyle.Bold), Color.FromArgb(220, 60, 60), 20, 22, 480, 44);
+            Label lblSub = MakeLabel("The eagle could not make it in time.",
+                new Font("Segoe UI", 10, FontStyle.Italic), Color.FromArgb(195, 160, 160), 20, 72, 480, 26);
+            Label lblScore = MakeLabel("Score:  " + finalScore.ToString("N0"),
+                new Font("Segoe UI", 14, FontStyle.Bold), Color.White, 20, 115, 480, 34);
+            Label lblHigh = MakeLabel("Best:  " + highScore.ToString("N0"),
+                new Font("Segoe UI", 11), Color.Gold, 20, 152, 480, 28);
 
-            Label lblScore = new Label();
-            lblScore.Text      = "Final Score: " + finalScore.ToString("N0");
-            lblScore.Font      = new Font("Segoe UI", 13, FontStyle.Bold);
-            lblScore.ForeColor = Color.White;
-            lblScore.Size      = new Size(440, 30);
-            lblScore.Location  = new Point(20, 118);
-            lblScore.TextAlign = ContentAlignment.MiddleCenter;
+            int totalW = R.btn_retry_n.Width + 16 + R.btn_quit_n.Width;
+            int bx = (520 - totalW) / 2;
 
-            Label lblHigh = new Label();
-            lblHigh.Text      = "Best Score: " + highScore.ToString("N0");
-            lblHigh.Font      = new Font("Segoe UI", 11);
-            lblHigh.ForeColor = Color.Gold;
-            lblHigh.Size      = new Size(440, 28);
-            lblHigh.Location  = new Point(20, 150);
-            lblHigh.TextAlign = ContentAlignment.MiddleCenter;
+            PictureBox pbRetry = MakeImgBtn(R.btn_retry_n, R.btn_retry_h, bx, 265,
+                (s,e) => { PlayerChoseRestart = true; this.Close(); });
+            PictureBox pbQuit  = MakeImgBtn(R.btn_quit_n,  R.btn_quit_h,  bx + R.btn_retry_n.Width + 16, 265,
+                (s,e) => { this.Close(); });
 
-            Button btnRestart = MakeButton("Try Again", 100, 215, Color.FromArgb(150, 60, 20));
-            btnRestart.Click += (s, e) => { PlayerChoseRestart = true; this.Close(); };
-
-            Button btnQuit = MakeButton("Quit", 260, 215, Color.FromArgb(60, 20, 20));
-            btnQuit.Click += (s, e) => { PlayerChoseRestart = false; this.Close(); };
-
-            this.Controls.AddRange(new Control[] {
-                lblTitle, lblSub, lblScore, lblHigh, btnRestart, btnQuit
-            });
+            this.Controls.AddRange(new Control[] { lblTitle, lblSub, lblScore, lblHigh, pbRetry, pbQuit });
         }
 
-        private Button MakeButton(string text, int x, int y, Color backColor)
+        protected override void OnPaint(PaintEventArgs e)
         {
-            Button btn = new Button();
-            btn.Text      = text;
-            btn.Size      = new Size(130, 42);
-            btn.Location  = new Point(x, y);
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.FlatAppearance.BorderColor = Color.FromArgb(120, 80, 80);
-            btn.FlatAppearance.BorderSize  = 1;
-            btn.BackColor  = backColor;
-            btn.ForeColor  = Color.White;
-            btn.Font       = new Font("Segoe UI", 11, FontStyle.Bold);
-            btn.Cursor     = Cursors.Hand;
-            return btn;
+            base.OnPaint(e);
+            using (var ov = new LinearGradientBrush(
+                new Point(0,0), new Point(0, 200),
+                Color.FromArgb(170, 4, 2, 8), Color.FromArgb(0, 0, 0, 0)))
+                e.Graphics.FillRectangle(ov, 0, 0, this.Width, 200);
         }
     }
 
 
-    // ════════════════════════════════════════════════════
+    // ════════════════════════════════════════════════════════════
     // WIN FORM
-    // ════════════════════════════════════════════════════
+    // ════════════════════════════════════════════════════════════
     public class WinForm : Form
     {
+        private static Label MakeLabel(string t, Font f, Color c, int x, int y, int w, int h) => FormHelpers.MakeLabel(t,f,c,x,y,w,h);
+        private static PictureBox MakeImgBtn(Image n, Image h2, int x, int y, EventHandler e2) => FormHelpers.MakeImgBtn(n,h2,x,y,e2);
         private int finalScore;
         private int highScore;
 
@@ -204,75 +159,56 @@ namespace EagleQuest.Forms
 
         private void InitializeForm()
         {
-            this.Text            = "Victory!";
-            this.Size            = new Size(520, 380);
+            this.Text            = "Eagle Quest — Victory!";
+            this.Size            = new Size(540, 400);
             this.StartPosition   = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox     = false;
-            this.BackColor       = Color.FromArgb(8, 20, 10);
             this.DoubleBuffered  = true;
+            // Warm sunrise background
+            this.BackgroundImage       = EagleQuest.Properties.Resources.win_bg;
+            this.BackgroundImageLayout = ImageLayout.Stretch;
 
-            Label lblTitle = new Label();
-            lblTitle.Text      = "🏆  The Baby is Fed!";
-            lblTitle.Font      = new Font("Georgia", 22, FontStyle.Bold);
-            lblTitle.ForeColor = Color.Gold;
-            lblTitle.Size      = new Size(480, 50);
-            lblTitle.Location  = new Point(20, 25);
-            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
 
-            Label lblSub = new Label();
-            lblSub.Text      = "The eagle survived all three levels.\nThe nest is safe.";
-            lblSub.Font      = new Font("Segoe UI", 12, FontStyle.Italic);
-            lblSub.ForeColor = Color.FromArgb(180, 230, 180);
-            lblSub.Size      = new Size(480, 55);
-            lblSub.Location  = new Point(20, 85);
-            lblSub.TextAlign = ContentAlignment.MiddleCenter;
+            Label lblTitle = MakeLabel("🏆  The Baby is Fed!",
+                new Font("Georgia", 22, FontStyle.Bold), Color.Gold, 20, 22, 500, 50);
+            Label lblSub = MakeLabel("The eagle survived all three levels. The nest is safe.",
+                new Font("Segoe UI", 11, FontStyle.Italic), Color.FromArgb(180, 230, 180), 20, 82, 500, 52);
+            Label lblScore = MakeLabel("Final Score:  " + finalScore.ToString("N0"),
+                new Font("Segoe UI", 15, FontStyle.Bold), Color.White, 20, 148, 500, 36);
+            Label lblHigh = MakeLabel("Best:  " + highScore.ToString("N0"),
+                new Font("Segoe UI", 12), Color.Gold, 20, 190, 500, 30);
 
-            Label lblScore = new Label();
-            lblScore.Text      = "Final Score: " + finalScore.ToString("N0");
-            lblScore.Font      = new Font("Segoe UI", 15, FontStyle.Bold);
-            lblScore.ForeColor = Color.White;
-            lblScore.Size      = new Size(480, 35);
-            lblScore.Location  = new Point(20, 150);
-            lblScore.TextAlign = ContentAlignment.MiddleCenter;
+            PictureBox pbClose = MakeImgBtn(R.btn_close_n, R.btn_close_h,
+                (540 - R.btn_close_n.Width) / 2, 282, (s,e) => this.Close());
 
-            Label lblHigh = new Label();
-            lblHigh.Text      = "High Score: " + highScore.ToString("N0");
-            lblHigh.Font      = new Font("Segoe UI", 12);
-            lblHigh.ForeColor = Color.Gold;
-            lblHigh.Size      = new Size(480, 30);
-            lblHigh.Location  = new Point(20, 190);
-            lblHigh.TextAlign = ContentAlignment.MiddleCenter;
+            this.Controls.AddRange(new Control[] { lblTitle, lblSub, lblScore, lblHigh, pbClose });
+        }
 
-            Button btnClose = new Button();
-            btnClose.Text      = "Close";
-            btnClose.Size      = new Size(160, 45);
-            btnClose.Location  = new Point(180, 270);
-            btnClose.FlatStyle = FlatStyle.Flat;
-            btnClose.FlatAppearance.BorderColor = Color.Gold;
-            btnClose.FlatAppearance.BorderSize  = 1;
-            btnClose.BackColor  = Color.FromArgb(60, 100, 30);
-            btnClose.ForeColor  = Color.White;
-            btnClose.Font       = new Font("Segoe UI", 12, FontStyle.Bold);
-            btnClose.Cursor     = Cursors.Hand;
-            btnClose.Click     += (s, e) => this.Close();
-
-            this.Controls.AddRange(new Control[] {
-                lblTitle, lblSub, lblScore, lblHigh, btnClose
-            });
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            using (var ov = new LinearGradientBrush(
+                new Point(0,0), new Point(0, 230),
+                Color.FromArgb(150, 10, 20, 8), Color.FromArgb(0, 0, 0, 0)))
+                e.Graphics.FillRectangle(ov, 0, 0, this.Width, 230);
         }
     }
 
 
-    // ════════════════════════════════════════════════════
-
-    // ════════════════════════════════════════════════════
-    // HOW TO PLAY FORM  — improved visual style
-    // Warm amber/earth tones, clear section headings,
-    // better readable text layout, eagle-nest theme.
-    // ════════════════════════════════════════════════════
+    // ════════════════════════════════════════════════════════════
+    // HOW TO PLAY FORM — Full Two-Column Redesign
+    // ════════════════════════════════════════════════════════════
     public class HowToPlayForm : Form
     {
+        private static PictureBox MakeImgBtn(Image n, Image h2, int x, int y, EventHandler e2)
+            => FormHelpers.MakeImgBtn(n, h2, x, y, e2);
+
+        private Panel scrollPanel;
+        private Panel contentPanel;
+        private Panel footerPanel;
+        private PictureBox pbClose;
+
         public HowToPlayForm()
         {
             InitializeForm();
@@ -281,139 +217,269 @@ namespace EagleQuest.Forms
         private void InitializeForm()
         {
             this.Text            = "How To Play — Eagle Quest";
-            this.Size            = new Size(560, 520);
             this.StartPosition   = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox     = false;
-            this.BackColor       = Color.FromArgb(38, 22, 8);  
+            this.MinimizeBox     = false;
+            this.BackColor       = Color.FromArgb(32, 18, 6);
             this.DoubleBuffered  = true;
 
-            // ── TITLE ───────────────────────────────────────
-            Label lblTitle = new Label();
-            lblTitle.Text      = "🦅  Eagle Quest — How To Play";
-            lblTitle.Font      = new Font("Georgia", 17, FontStyle.Bold);
-            lblTitle.ForeColor = Color.FromArgb(255, 210, 80);  
-            lblTitle.Size      = new Size(520, 42);
-            lblTitle.Location  = new Point(18, 14);
-            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
+            Rectangle working = Screen.PrimaryScreen.WorkingArea;
+            int safeWidth  = Math.Min(1180, Math.Max(900, working.Width  - 80));
+            int safeHeight = Math.Min(800,  Math.Max(600, working.Height - 100));
+            this.ClientSize = new Size(safeWidth, safeHeight);
 
-            // ── DIVIDER PANEL ────────────────────────────────
-            Panel divider = new Panel();
-            divider.BackColor = Color.FromArgb(190, 140, 40);
-            divider.Size      = new Size(500, 2);
-            divider.Location  = new Point(28, 58);
+            var pbHeader = new PictureBox();
+            pbHeader.Image     = R.howto_header;
+            pbHeader.Dock      = DockStyle.Top;
+            pbHeader.Height    = 125;
+            pbHeader.SizeMode  = PictureBoxSizeMode.StretchImage;
+            pbHeader.BackColor = Color.FromArgb(35, 18, 5);
 
-            // ── INSTRUCTIONS TEXT BOX ────────────────────────
-            
-            RichTextBox rtb = new RichTextBox();
-            rtb.Size        = new Size(502, 370);
-            rtb.Location    = new Point(26, 68);
-            rtb.BackColor   = Color.FromArgb(55, 32, 10);   
-            rtb.ForeColor   = Color.FromArgb(245, 230, 200); 
-            rtb.Font        = new Font("Segoe UI", 10);
-            rtb.ReadOnly    = true;
-            rtb.BorderStyle = BorderStyle.None;
-            rtb.ScrollBars  = RichTextBoxScrollBars.Vertical;
-            rtb.Text =
-                "STORY\r\n" +
-                "  Your baby eagle is hungry in the nest high above.\r\n" +
-                "  Fly through the sky, collect food, and return to the\r\n" +
-                "  nest before the hunger timer runs out!\r\n" +
-                "\r\n" +
-                "CONTROLS\r\n" +
-                "  Arrow Keys   ↑  ↓  ←  →    Move the eagle\r\n" +
-                "  SPACE                        Fire feather  (Level 3 only)\r\n" +
-                "                               A short cooldown prevents rapid firing\r\n" +
-                "\r\n" +
-                "OBJECTIVE\r\n" +
-                "  Level 1 — Collect 3 prey,  return to nest   (60 seconds)\r\n" +
-                "  Level 2 — Collect 5 prey,  return to nest   (50 seconds)\r\n" +
-                "  Level 3 — Collect 7 prey,  return to nest   (45 seconds)\r\n" +
-                "\r\n" +
-                "HOW TO WIN A LEVEL\r\n" +
-                "  1. Collect all required food items.\r\n" +
-                "  2. Fly to the NEST on the right side of the screen!\r\n" +
-                "\r\n" +
-                "FEATHER ATTACK — LEVEL 3\r\n" +
-                "  Press SPACE to fire a feather upward at enemies.\r\n" +
-                "  Each feather disappears after hitting one enemy.\r\n" +
-                "\r\n" +
-                "  Crow             — 1 feather hit to destroy\r\n" +
-                "  Hawk             — 2 feather hits to destroy\r\n" +
-                "  Military Plane   — 3 feather hits to destroy\r\n" +
-                "\r\n" +
-                "  Tip: Aim carefully — the plane takes three separate hits.\r\n" +
-                "  Use feathers wisely while collecting prey and returning to nest.\r\n" +
-                "\r\n" +
-                "ENEMIES & HAZARDS\r\n" +
-                "  Crow             — Flies left and right across the sky\r\n" +
-                "  Hawk             — Dives toward the eagle\r\n" +
-                "  Military Plane   — Fires bullets downward  (Level 3)\r\n" +
-                "  Storm Clouds     — Drift and damage the eagle  (Level 2+)\r\n" +
-                "  Mountain Tips    — Avoid the rocky peaks!  (Level 1)\r\n" +
-                "\r\n" +
-                "POWER-UPS\r\n" +
-                "  🔵 Blue Shield   — Absorbs one hit, then turns off\r\n" +
-                "  ⚡ Yellow Bolt   — Speed boost for several seconds\r\n" +
-                "\r\n" +
-                "TIPS\r\n" +
-                "  • Collect the shield before approaching enemies.\r\n" +
-                "  • Fly through gaps between mountain peaks in Level 1.\r\n" +
-                "  • Timer flashing RED means hurry — return to nest fast!\r\n" +
-                "  • You keep your score across all three levels.";
+            footerPanel = new Panel();
+            footerPanel.Dock      = DockStyle.Bottom;
+            footerPanel.Height    = 72;
+            footerPanel.BackColor = Color.FromArgb(26, 13, 4);
+            footerPanel.Paint    += PaintFooter;
 
-            
-            ApplySectionHeadings(rtb);
+            pbClose = MakeImgBtn(R.btn_back_n, R.btn_back_h, 0, 10, (s, e) => this.Close());
+            footerPanel.Controls.Add(pbClose);
+            footerPanel.Resize += (s, e) =>
+            {
+                pbClose.Left = (footerPanel.ClientSize.Width - pbClose.Width) / 2;
+                pbClose.Top  = (footerPanel.ClientSize.Height - pbClose.Height) / 2;
+            };
 
-            
-            Button btnClose = new Button();
-            btnClose.Text      = "Got it!  ▶ Play";
-            btnClose.Size      = new Size(170, 42);
-            btnClose.Location  = new Point((560 - 170) / 2, 452);
-            btnClose.FlatStyle = FlatStyle.Flat;
-            btnClose.FlatAppearance.BorderColor = Color.FromArgb(210, 160, 40);
-            btnClose.FlatAppearance.BorderSize  = 2;
-            btnClose.BackColor  = Color.FromArgb(175, 115, 15);
-            btnClose.ForeColor  = Color.FromArgb(255, 250, 220);
-            btnClose.Font       = new Font("Segoe UI", 11, FontStyle.Bold);
-            btnClose.Cursor     = Cursors.Hand;
-            btnClose.Click     += (s, e) => this.Close();
+            scrollPanel = new Panel();
+            scrollPanel.Dock       = DockStyle.Fill;
+            scrollPanel.AutoScroll = true;
+            scrollPanel.BackColor  = Color.FromArgb(32, 18, 6);
+            scrollPanel.Padding    = new Padding(14);
 
-            btnClose.MouseEnter += (s, e) => btnClose.BackColor = Color.FromArgb(210, 145, 25);
-            btnClose.MouseLeave += (s, e) => btnClose.BackColor = Color.FromArgb(175, 115, 15);
+            int contentWidth = safeWidth - 55;
+            int gap = 14;
+            int columnWidth = (contentWidth - gap) / 2;
+            int columnHeight = 735;
 
-            this.Controls.AddRange(new Control[] { lblTitle, divider, rtb, btnClose });
+            contentPanel = new Panel();
+            contentPanel.Location  = new Point(0, 0);
+            contentPanel.Size      = new Size(contentWidth, columnHeight + 24);
+            contentPanel.BackColor = Color.FromArgb(32, 18, 6);
+
+            var leftPanel = new Panel();
+            leftPanel.Location  = new Point(0, 10);
+            leftPanel.Size      = new Size(columnWidth, columnHeight);
+            leftPanel.BackColor = Color.FromArgb(44, 26, 8);
+            leftPanel.Paint    += PaintPanel;
+            BuildLeftColumn(leftPanel);
+
+            var rightPanel = new Panel();
+            rightPanel.Location  = new Point(columnWidth + gap, 10);
+            rightPanel.Size      = new Size(columnWidth, columnHeight);
+            rightPanel.BackColor = Color.FromArgb(44, 26, 8);
+            rightPanel.Paint    += PaintPanel;
+            BuildRightColumn(rightPanel);
+
+            contentPanel.Controls.Add(leftPanel);
+            contentPanel.Controls.Add(rightPanel);
+            scrollPanel.Controls.Add(contentPanel);
+            scrollPanel.AutoScrollMinSize = new Size(contentWidth, columnHeight + 45);
+
+            this.Controls.Add(scrollPanel);
+            this.Controls.Add(footerPanel);
+            this.Controls.Add(pbHeader);
         }
 
-        
-        private void ApplySectionHeadings(RichTextBox rtb)
+        private void PaintFooter(object sender, PaintEventArgs e)
         {
-            string[] headings = { "STORY", "CONTROLS", "OBJECTIVE",
-                                  "HOW TO WIN A LEVEL", "FEATHER ATTACK — LEVEL 3",
-                                  "ENEMIES & HAZARDS", "POWER-UPS", "TIPS" };
+            using (var pen = new Pen(Color.FromArgb(155, 112, 25), 1))
+                e.Graphics.DrawLine(pen, 0, 0, footerPanel.Width, 0);
+        }
 
-            foreach (string heading in headings)
-            {
-                int idx = rtb.Text.IndexOf(heading);
-                if (idx < 0) continue;
-                rtb.Select(idx, heading.Length);
-                rtb.SelectionFont  = new Font("Segoe UI", 10, FontStyle.Bold);
-                rtb.SelectionColor = Color.FromArgb(255, 210, 80); // gold heading
-            }
-            rtb.SelectionStart  = 0;
-            rtb.SelectionLength = 0;
+        private void PaintPanel(object sender, PaintEventArgs e)
+        {
+            var p = sender as Panel;
+            using (var pen = new Pen(Color.FromArgb(175, 130, 30), 1))
+                e.Graphics.DrawRectangle(pen, 0, 0, p.Width - 1, p.Height - 1);
+        }
+
+        private void BuildLeftColumn(Panel p)
+        {
+            int y = 12;
+
+            AddSectionHead(p, "CONTROLS", ref y);
+            AddIconRow(p, R.key_arrows, "Arrow Keys — Move the eagle", ref y, 62, 36);
+            AddIconRow(p, R.key_space, "SPACE — Fire feather (Level 3 only)", ref y, 80, 28);
+            AddSmallNote(p, "Short cooldown — continuous rapid fire is prevented", ref y);
+
+            y += 10;
+            AddSectionHead(p, "OBJECTIVE", ref y);
+            AddIconRow(p, R.icon_food, "Collect all required prey", ref y);
+            AddIconRow(p, R.icon_nest, "Return to the baby nest", ref y);
+            AddIconRow(p, R.icon_timer, "Beat the hunger timer", ref y);
+
+            y += 10;
+            AddSectionHead(p, "LEVELS", ref y);
+            AddTextLine(p, "Level 1 — 3 prey   |   60 seconds", ref y, Color.FromArgb(220, 190, 130));
+            AddTextLine(p, "Level 2 — 5 prey   |   50 seconds", ref y, Color.FromArgb(220, 190, 130));
+            AddTextLine(p, "Level 3 — 7 prey   |   45 seconds", ref y, Color.FromArgb(220, 190, 130));
+
+            y += 10;
+            AddSectionHead(p, "POWER-UPS", ref y);
+            AddIconRow(p, R.icon_shield, "Shield — Absorbs one hit", ref y);
+            AddIconRow(p, R.icon_speed, "Speed Boost — Move faster", ref y);
+        }
+
+        private void BuildRightColumn(Panel p)
+        {
+            int y = 12;
+
+            AddSectionHead(p, "ENEMIES & HAZARDS", ref y);
+            AddIconRow(p, R.icon_crow, "Crow — Patrols left and right", ref y);
+            AddIconRow(p, R.icon_hawk, "Hawk — Dives toward the eagle", ref y);
+            AddIconRow(p, R.icon_plane, "Plane — Fires bullets downward", ref y);
+            AddSmallNote(p, "Rocks, mountain peaks and storm clouds are hazards", ref y);
+
+            y += 10;
+            AddSectionHead(p, "FEATHER ATTACK — LEVEL 3", ref y);
+            AddIconRow(p, R.icon_feather, "Press SPACE to fire a feather", ref y);
+            AddSmallNote(p, "Each feather hits one enemy and then disappears", ref y);
+
+            y += 6;
+            AddIconRow(p, R.icon_crow, "Crow — 1 feather hit", ref y);
+            AddIconRow(p, R.icon_hawk, "Hawk — 2 feather hits", ref y);
+            AddIconRow(p, R.icon_plane, "Plane — 3 feather hits", ref y);
+
+            y += 10;
+            AddSectionHead(p, "TIPS", ref y);
+            AddTextLine(p, "• Grab the shield before approaching enemies", ref y, Color.FromArgb(215, 180, 120));
+            AddTextLine(p, "• Fly carefully through mountain gaps in Level 1", ref y, Color.FromArgb(215, 180, 120));
+            AddTextLine(p, "• When the timer turns red, return to the nest quickly", ref y, Color.FromArgb(215, 180, 120));
+            AddTextLine(p, "• Your score carries across all levels", ref y, Color.FromArgb(215, 180, 120));
+        }
+
+        private void AddSectionHead(Panel p, string text, ref int y)
+        {
+            var lbl = new Label();
+            lbl.Text      = text;
+            lbl.Font      = new Font("Segoe UI", 10.5f, FontStyle.Bold);
+            lbl.ForeColor = Color.FromArgb(255, 210, 70);
+            lbl.BackColor = Color.Transparent;
+            lbl.AutoSize  = false;
+            lbl.Size      = new Size(p.Width - 18, 24);
+            lbl.Location  = new Point(9, y);
+            p.Controls.Add(lbl);
+
+            var underline = new Panel();
+            underline.BackColor = Color.FromArgb(160, 115, 25);
+            underline.Size      = new Size(p.Width - 18, 1);
+            underline.Location  = new Point(9, y + 22);
+            p.Controls.Add(underline);
+            y += 31;
+        }
+
+        private void AddIconRow(Panel p, Image icon, string text, ref int y, int iW = 36, int iH = 36)
+        {
+            int rowH = Math.Max(iH, 24) + 6;
+
+            var pb = new PictureBox();
+            pb.Image     = icon;
+            pb.Size      = new Size(iW, iH);
+            pb.Location  = new Point(10, y + (rowH - iH) / 2);
+            pb.SizeMode  = PictureBoxSizeMode.Zoom;
+            pb.BackColor = Color.Transparent;
+            p.Controls.Add(pb);
+
+            var lbl = new Label();
+            lbl.Text      = text;
+            lbl.Font      = new Font("Segoe UI", 9.5f);
+            lbl.ForeColor = Color.FromArgb(238, 218, 182);
+            lbl.BackColor = Color.Transparent;
+            lbl.AutoSize  = false;
+            lbl.Size      = new Size(p.Width - iW - 28, rowH);
+            lbl.Location  = new Point(iW + 18, y);
+            lbl.TextAlign = ContentAlignment.MiddleLeft;
+            p.Controls.Add(lbl);
+
+            y += rowH + 3;
+        }
+
+        private void AddSmallNote(Panel p, string text, ref int y)
+        {
+            var lbl = new Label();
+            lbl.Text      = text;
+            lbl.Font      = new Font("Segoe UI", 8.5f, FontStyle.Italic);
+            lbl.ForeColor = Color.FromArgb(175, 153, 114);
+            lbl.BackColor = Color.Transparent;
+            lbl.AutoSize  = false;
+            lbl.Size      = new Size(p.Width - 20, 34);
+            lbl.Location  = new Point(10, y);
+            lbl.TextAlign = ContentAlignment.MiddleLeft;
+            p.Controls.Add(lbl);
+            y += 36;
+        }
+
+        private void AddTextLine(Panel p, string text, ref int y, Color col)
+        {
+            var lbl = new Label();
+            lbl.Text      = text;
+            lbl.Font      = new Font("Segoe UI", 9.4f);
+            lbl.ForeColor = col;
+            lbl.BackColor = Color.Transparent;
+            lbl.AutoSize  = false;
+            lbl.Size      = new Size(p.Width - 20, 28);
+            lbl.Location  = new Point(10, y);
+            lbl.TextAlign = ContentAlignment.MiddleLeft;
+            p.Controls.Add(lbl);
+            y += 30;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            
-            using (LinearGradientBrush bg = new LinearGradientBrush(
-                new Point(0, 0), new Point(0, this.Height),
-                Color.FromArgb(45, 25, 8), Color.FromArgb(28, 14, 4)))
+            using (var bg = new LinearGradientBrush(
+                new Point(0, 0),
+                new Point(0, this.Height),
+                Color.FromArgb(42, 22, 7),
+                Color.FromArgb(22, 10, 3)))
             {
                 e.Graphics.FillRectangle(bg, this.ClientRectangle);
             }
+        }
+    }
+
+
+    // ════════════════════════════════════════════════════════════
+    // SHARED HELPERS
+    // ════════════════════════════════════════════════════════════
+    static class FormHelpers
+    {
+        public static Label MakeLabel(string text, Font font, Color col, int x, int y, int w, int h)
+        {
+            var lbl = new Label();
+            lbl.Text      = text;
+            lbl.Font      = font;
+            lbl.ForeColor = col;
+            lbl.BackColor = Color.Transparent;
+            lbl.Size      = new Size(w, h);
+            lbl.Location  = new Point(x, y);
+            lbl.TextAlign = ContentAlignment.MiddleCenter;
+            return lbl;
+        }
+
+        public static PictureBox MakeImgBtn(Image normal, Image hover, int x, int y, EventHandler onClick)
+        {
+            var pb = new PictureBox();
+            pb.Image    = normal;
+            pb.Size     = new Size(normal.Width, normal.Height);
+            pb.Location = new Point(x, y);
+            pb.SizeMode = PictureBoxSizeMode.AutoSize;
+            pb.BackColor= Color.Transparent;
+            pb.Cursor   = Cursors.Hand;
+            pb.Click   += onClick;
+            pb.MouseEnter += (s, e) => pb.Image = hover;
+            pb.MouseLeave += (s, e) => pb.Image = normal;
+            return pb;
         }
     }
 }

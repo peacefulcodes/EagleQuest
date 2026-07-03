@@ -247,4 +247,101 @@
   <data name="startup_eagle_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\startup_eagle_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+
+  <data name="btn_back_h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\btn_back_h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_back_n" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\btn_back_n.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_close_h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\btn_close_h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_close_n" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\btn_close_n.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_exit_h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\btn_exit_h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_exit_n" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\btn_exit_n.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_next_h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\btn_next_h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_next_n" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\btn_next_n.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_play_h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\btn_play_h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_play_n" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\btn_play_n.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_quit_h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\btn_quit_h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_quit_n" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\btn_quit_n.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_retry_h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\btn_retry_h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_retry_n" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\btn_retry_n.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_sm_h" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\btn_sm_h.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_sm_n" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\btn_sm_n.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gameover_bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\gameover_bg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="howto_header" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\howto_header.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lvlcomp_bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\lvlcomp_bg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="win_bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\win_bg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_crow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\icon_crow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_eagle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\icon_eagle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_feather" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\icon_feather.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_food" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\icon_food.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_hawk" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\icon_hawk.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_nest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\icon_nest.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_plane" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\icon_plane.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_shield" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\icon_shield.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_speed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\icon_speed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_timer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\icon_timer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="key_arrows" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\key_arrows.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="key_space" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UI\key_space.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
